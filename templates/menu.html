@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+  {% block title %}Chests - LoL Mastery{% endblock  %}
+  {% block extra_css %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="/static/css/jquery.gridder.min.css" rel="stylesheet">
+      <link href="/static/css/menu.css" rel="stylesheet">
+
+  {% endblock  %}
+
+  {% block content %}
+    <div class="container">
+      <div class="page-header">
+        <h1>Know with what champions you have owned chests!</h1>
+      </div>
+		</div>
+
+
+		<div class="container">
+
+            <ul class="gridder">
+              {% for x in get_champs %}
+                <li class="gridder-list" data-griddercontent="#gridder-content-{{ forloop.counter }}">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{x}}_0.jpg" class="img-responsive" />
+                </li>
+              {% endfor %}
+            </ul>
+
+            {% for x in get_champs %}
+            <div id="gridder-content-{{ forloop.counter }}" class="gridder-content" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{x}}_0.jpg" class="img-responsive" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>{{x}}</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ex augue, hendrerit sed gravida ut, mattis vel tortor. Duis hendrerit sagittis bibendum. Fusce massa risus, hendrerit et est vitae, convallis accumsan ipsum. Integer vitae erat mattis, ornare tortor nec, luctus turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse finibus fermentum consectetur. Nulla vestibulum, diam ut finibus dictum, justo felis blandit mi, sed rhoncus tortor augue vitae orci. Fusce semper eu ante ut faucibus.</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+
+		</div>
+
+    <script src="/static/js/jquery.gridder.js"></script>
+    <script>
+      jQuery(document).ready(function($) {
+
+        // Call Gridder
+        $(".gridder").gridderExpander({
+          scrollOffset: 60,
+          scrollTo: "panel", // "panel" or "listitem"
+          animationSpeed: 400,
+          animationEasing: "easeInOutExpo",
+          onStart: function() {
+            console.log("Gridder Inititialized");
+          },
+          onExpanded: function(object) {
+            console.log("Gridder Expanded");
+            $(".carousel").carousel();
+          },
+          onChanged: function(object) {
+            console.log("Gridder Changed");
+          },
+          onClosed: function() {
+            console.log("Gridder Closed");
+          }
+        });
+
+        $( ".gridder-list" ).click(function() {
+          alert($(this).children().eq(0).html);
+        });
+
+      });
+    </script>
+  {% endblock  %}

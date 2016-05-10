@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+  {% block title %}Home - LoL Mastery{% endblock  %}
+  {% block extra_css %}
+  <style>
+    body{
+      background: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{champ_ob}}_0.jpg");
+      background-repeat:no-repeat;
+      -webkit-background-size:cover;
+      -moz-background-size:cover;
+      -o-background-size:cover;
+    }
+  </style>
+  <link rel="stylesheet" href="static/css/index.css">
+  {% endblock  %}
+
+  {% block content %}
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Welcome to LoL Champion Mastery!</h1>
+      </div>
+
+      <div class="row">
+
+        {% if msg_err %}
+          <div class="alert alert-danger" role="alert" id="success_message">{{msg_err}}</div>
+        {% endif %}
+
+        {% if msg_success %}
+          <div class="alert alert-success" role="alert" id="success_message">{{msg_success}}</div>
+        {% endif %}
+
+
+        <div class="col-sm-12">
+
+          <div class="login-box">
+            <div class="lb-header">
+              <a href="#" class="active" id="login-box-link">Login</a>
+              <a href="#" id="signup-box-link">Sign Up</a>
+            </div>
+            <div class="social-login">
+              <a href="{% url 'social:begin' 'facebook' %}">
+                <i class="fa fa-facebook fa-lg"></i> Login in with facebook
+              </a>
+            </div>
+            <form class="email-login" method="post">
+              {% csrf_token %}
+              <div class="u-form-group">
+                <input type="text" placeholder="Username" name="user_log" required/>
+              </div>
+              <div class="u-form-group">
+                <input type="password" placeholder="Password" name="pass_log" required/>
+              </div>
+              <div class="u-form-group">
+                <button type="submit" name="login">Log in</button>
+              </div>
+              <div class="u-form-group">
+                <a href="#" class="forgot-password">Forgot password?</a>
+              </div>
+            </form>
+            <form class="email-signup" method="post">
+              {% csrf_token %}
+              <div class="u-form-group">
+                {{singup.username}}
+              </div>
+              <div class="u-form-group">
+                {{singup.email}}
+              </div>
+              <div class="u-form-group">
+                {{singup.summoner_name}}
+              </div>
+              <div class="u-form-group">
+                <div class="input-group">
+                  {{singup.server}}
+                </div>
+              </div>
+              <div class="u-form-group">
+                {{singup.password}}
+              </div>
+              <div class="u-form-group">
+                <button type="submit" name="signup" >Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    {% block extra_script %}
+    <script>
+      $(".email-signup").hide();
+      $("#signup-box-link").click(function(){
+        $(".email-login").fadeOut(100);
+        $(".email-signup").delay(100).fadeIn(100);
+        $("#login-box-link").removeClass("active");
+        $("#signup-box-link").addClass("active");
+      });
+      $("#login-box-link").click(function(){
+        $(".email-login").delay(100).fadeIn(100);;
+        $(".email-signup").fadeOut(100);
+        $("#login-box-link").addClass("active");
+        $("#signup-box-link").removeClass("active");
+      });
+    </script>
+    {% endblock  %}
+
+  {% endblock  %}

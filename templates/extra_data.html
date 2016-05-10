@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+  {% block title %}Complete your sing up - LoL Mastery{% endblock  %}
+
+  {% block extra_css %}
+  <style>
+    body{
+      background: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{champ_ob}}_0.jpg");
+      background-repeat:no-repeat;
+      -webkit-background-size:cover;
+      -moz-background-size:cover;
+      -o-background-size:cover;
+    }
+  </style>
+  <link rel="stylesheet" href="/static/css/extra_data.css">
+
+  {% endblock  %}
+
+  {% block content %}
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Welcome {{request.user.username}}</h1>
+      </div>
+
+      <form class="well form-horizontal" action="" method="post"  id="contact_form">
+        {% csrf_token %}
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Last step, add your summonername</legend>
+
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" >SummonerName:</label>
+            <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            {{extra_data_form.summoner_name}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Server</label>
+            <div class="col-md-4 selectContainer">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                {{extra_data_form.server}}
+              </div>
+            </div>
+        </div>
+
+
+        <!-- Success message-->
+        {% if msg_err %}
+        <div class="alert alert-danger" role="alert" id="success_message">{{msg_err}}</div>
+        {% endif %}
+
+
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-4" id="button_send">
+            <button type="submit" class="btn btn-warning" >Send <span class="glyphicon glyphicon-send"></span></button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+    </div>
+
+  {% endblock  %}
