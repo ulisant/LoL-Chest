@@ -3,7 +3,7 @@ import json
 from random import randint
 
 #Yor api key
-api_riot = "66369ede-8538-4fe9-94ab-16981b0059ab"
+api_riot = ""
 
 def get_champ_img():
 
